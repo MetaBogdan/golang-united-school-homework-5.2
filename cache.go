@@ -2,13 +2,13 @@ package cache
 
 import "time"
 
-type Cache struct {
-	massivCash map[string]saveVal
-}
-
 type saveVal struct {
 	value  string
 	record time.Time
+}
+
+type Cache struct {
+	massivCash map[string]saveVal
 }
 
 func NewCache() Cache {
