@@ -12,10 +12,11 @@ type Cache struct {
 }
 
 func NewCache() Cache {
+
 	return Cache{massivCash: make(map[string]saveVal)}
 }
 
-func (in *Chash) Get(key string) (string, bool) {
+func (in *Cache) Get(key string) (string, bool) {
 	if value, ok := in.massivCash[key]; ok {
 		if value.record.IsZero() || time.Now().Before(value.record) {
 
@@ -26,7 +27,7 @@ func (in *Chash) Get(key string) (string, bool) {
 	return "", false
 }
 
-func (in *Chash) Put(key, value string) {
+func (in *Cache) Put(key, value string) {
 
 	in.massivCash[key] = saveVal{
 		value:  value,
@@ -34,7 +35,7 @@ func (in *Chash) Put(key, value string) {
 	}
 }
 
-func (in *Chash) Keys() []string {
+func (in *Cache) Keys() []string {
 	listKeys := make([]string, 0)
 	for k := range in.massivCash {
 		listKeys = append(listKeys, k)
@@ -44,7 +45,7 @@ func (in *Chash) Keys() []string {
 
 }
 
-func (in *Chash) PutTill(key, value string, deadline time.Time) {
+func (in *Cache) PutTill(key, value string, deadline time.Time) {
 	in.massivCash[key] = saveVal{
 		value:  value,
 		record: deadline,
